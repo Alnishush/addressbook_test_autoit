@@ -10,7 +10,7 @@ namespace addressbook_test_autoit
     public class ApplicationManager
     {
         private AutoItX3 aux;
-        private GroupHelper groupHelper;
+        private GroupHelper groupHelper; 
 
         public ApplicationManager()
         {
