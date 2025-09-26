@@ -19,7 +19,7 @@ namespace addressbook_test_autoit
             };
 
             app.Groups.Add(newGroup);                              // Создает группу из объекта
-
+            
             List<GroupData> newGroups = app.Groups.GetGroupList(); // Запоминает новый список
             oldGroups.Add(newGroup);                               // Добавляет в старый список новую группу в памяти (не в базу данных и не в UI)
             oldGroups.Sort();
