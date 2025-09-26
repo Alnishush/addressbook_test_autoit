@@ -37,15 +37,15 @@ namespace addressbook_test_autoit
             CloseGroupsDialogue();
         }
 
-        private void CloseGroupsDialogue()
-        {
-            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d54");    // Кнопка "Close"
-        }
-
         private void OpenGroupsDialogue()
         {
             aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d512");        // Кнопка "Edit groups"
             aux.WinWait(GROUPWINTITLE);                                                     // Ждет когда откроется нужное окно
+        }
+
+        private void CloseGroupsDialogue()
+        {
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d54");    // Кнопка "Close"
         }
     }
 }

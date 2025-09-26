@@ -10,21 +10,20 @@ namespace addressbook_test_autoit
 {
     public class ApplicationManager
     {
-        public static string WINTITLE = "Free Addres Book";
+        public static string WINTITLE = "Free Address Book";
 
         private AutoItX3 aux;
         private GroupHelper groupHelper; 
 
         public ApplicationManager()
         {
-            aux = new AutoItX3();
+            aux = new AutoItX3();                                                                   // Создает объект AutoIt
             aux.Run(@"C:\tools\AppsForTesting\AddressbookNative\AddressBook.exe", "", aux.SW_SHOW); // Запуск приложения; aux.SW_SHOW - показывает приложение (без него запускается в скрытом режиме)
-            // Ждет когда приложение откроется
-            aux.WinWait(WINTITLE);
-            aux.WinActivate(WINTITLE);
-            aux.WinWaitActive(WINTITLE);
+            aux.WinWait(WINTITLE);                                                                  // Ждет окно приложения
+            aux.WinActivate(WINTITLE);                                                              // Активирует окно
+            aux.WinWaitActive(WINTITLE);                                                            // Ждет активации окна
 
-            groupHelper = new GroupHelper(this);
+            groupHelper = new GroupHelper(this);                                                    // Создает хелпер для групп
         }
 
         public void Stop()
