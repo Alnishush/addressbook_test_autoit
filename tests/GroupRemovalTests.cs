@@ -22,20 +22,16 @@ namespace addressbook_test_autoit
                     Name = "GroupToDelete"
                 };
                 app.Groups.Add(newGroup);               // Создает группу из объекта
-                oldGroups = app.Groups.GetGroupList();  // Запоминает старый список
+                oldGroups = app.Groups.GetGroupList();  // Обновляем список групп
             }
 
-            // 3. Запоминаем группу для удаления (первую в списке)
-            //GroupData groupToRemove = oldGroups[0];
-
-            // 4. Удаляем группу
+            // 3. Удаляем группу
             app.Groups.Remove(); // Удаляем группу с индексом 0
 
-            // 5. Получаем новый список групп
+            // 4. Получаем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
-            //ClassicAssert.AreEqual(oldGroups.Count - +1, app.Groups.GetGroupCount()); // Проверяем колчичество групп
-            // 6. Проверка: количество групп уменьшилось на 1
+            // 5. Проверка: количество групп уменьшилось на 1
             ClassicAssert.That
                 (newGroups.Count,       // фактическое значение
                 Is.EqualTo              // Проверяет, равно ли фактическое значение ожидаемому

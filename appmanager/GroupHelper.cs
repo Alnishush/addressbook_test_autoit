@@ -13,6 +13,7 @@ namespace addressbook_test_autoit
         {
             List<GroupData> list = new List<GroupData>();           // Создается пустой список для хранения объектов GroupData
             OpenGroupsDialogue();                                   // Открытие окна "Group editor"
+            aux.Sleep(2000);                                        // Даем время окну полностью загрузиться
             // Получение количества групп
             string count = aux.ControlTreeView(                     // работа с TreeView контролом (иерархическое дерево)
                 GROUPWINTITLE,                                      // заголовок окна с группами
@@ -52,8 +53,7 @@ namespace addressbook_test_autoit
         public void Remove()
         {
             OpenGroupsDialogue();
-            //aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51"); // Поле с группами
-            aux.Send("{DOWN}");
+            aux.Send("{DOWN}");                                                                 // Нажимает стрелку вниз
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");        // Кнопка "Delete"
             aux.WinWait(DELETEGROUPWINTITLE);                                                   // Ждет когда откроется нужное окно
             aux.Send("{ENTER}");                                                                // Нажимает enter
