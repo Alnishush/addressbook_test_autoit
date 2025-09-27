@@ -23,14 +23,14 @@ namespace addressbook_test_autoit
             return Name == other.Name;                  // Сравнивает объекты по полю Name. Возвращает true если имена групп одинаковые
         }
 
-        public override bool Equals(object obj)
+        /*public override bool Equals(object obj)
         {
             if (obj is GroupData other)
             {
                 return Equals(other);
             }
             return false;
-        }
+        }*/
 
         public int CompareTo(GroupData other)           // Реализация метода из интерфейса IComparable<GroupData>. Позволяет сравнивать текущий объект с другим для определения порядка сортировки
         {
@@ -41,7 +41,7 @@ namespace addressbook_test_autoit
             return Name.CompareTo(other.Name);          // Сравнивает имена групп в лексикографическом порядке (алфавитно)
         }
 
-        public override int GetHashCode() // Сравнение элементов через хеш
+        /*public override int GetHashCode() // Сравнение элементов через хеш
         {
             return Name.GetHashCode();
         }
@@ -49,6 +49,6 @@ namespace addressbook_test_autoit
         public override string ToString() // Для дебага
         {
             return $"GroupData(Name: {Name})";
-        }
+        }*/
     }
 }

@@ -1,31 +1,43 @@
 ﻿
+
 namespace addressbook_test_autoit
 {
     public class GroupHelper : HelperBase
     {
         public static string GROUPWINTITLE = "Group editor";
+        public static string DELETEGROUPWINTITLE = "Delete group";
 
         public GroupHelper(ApplicationManager manager) : base(manager) { }
 
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> list = new List<GroupData>();
-            OpenGroupsDialogue();
-            string count = aux.ControlTreeView(
-                GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
-                "GetItemCount", "#0", "");
-            for (int i = 0; i < int.Parse(count); i++)
+            List<GroupData> list = new List<GroupData>();           // Создается пустой список для хранения объектов GroupData
+            OpenGroupsDialogue();                                   // Открытие окна "Group editor"
+            // Получение количества групп
+            string count = aux.ControlTreeView(                     // работа с TreeView контролом (иерархическое дерево)
+                GROUPWINTITLE,                                      // заголовок окна с группами
+                "",
+                "WindowsForms10.SysTreeView32.app.0.2c908d51",      // ID TreeView контрола (поле с группами)
+                "GetItemCount",                                     // команда получить количество элементов
+                "#0",                                               // корневой узел дерева (все группы находятся на верхнем уровне)
+                "");
+            for (int i = 0; i < int.Parse(count); i++)              // Преобразует строку count в число
             {
+                // Получение имени каждой группы
                 string item = aux.ControlTreeView(
-                    GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
-                    "GetText", "#0|#"+i, "");
-                list.Add(new GroupData()
+                    GROUPWINTITLE,
+                    "",
+                    "WindowsForms10.SysTreeView32.app.0.2c908d51",  // ID TreeView контрола (поле с группами)
+                    "GetText",                                      // команда получить текст элемента
+                    "#0|#" +i,                                      // путь к элементу: #0 - корневой узел; | - разделитель уровней; #i - i-й дочерний элемент (группа). Пример: "#0|#0" - первая группа, "#0|#1" - вторая группа
+                    "");
+                list.Add(new GroupData()                            // Создание объекта GroupData. Для каждого имени группы создается объект GroupData, Добавляется в список
                 {
                     Name = item
                 });
             }
-            CloseGroupsDialogue();
-            return list;
+            CloseGroupsDialogue();                                  // Закрытие окна "Group editor"
+            return list;                                            // Возврат результата
         }
 
         public void Add(GroupData newGroup)
@@ -34,7 +46,18 @@ namespace addressbook_test_autoit
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");    // Кнопка "New"
             aux.Send(newGroup.Name);                                                        // Вводит название
             aux.Send("{ENTER}");                                                            // Нажимает enter
-            CloseGroupsDialogue();
+            CloseGroupsDialogue();                                                          // Закрытие окна "Group editor"
+        }
+
+        public void Remove()
+        {
+            OpenGroupsDialogue();
+            //aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51"); // Поле с группами
+            aux.Send("{DOWN}");
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");        // Кнопка "Delete"
+            aux.WinWait(DELETEGROUPWINTITLE);                                                   // Ждет когда откроется нужное окно
+            aux.Send("{ENTER}");                                                                // Нажимает enter
+            CloseGroupsDialogue();                                                              // Закрытие окна "Group editor"
         }
 
         private void OpenGroupsDialogue()

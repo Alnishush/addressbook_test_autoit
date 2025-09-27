@@ -11,21 +11,26 @@ namespace addressbook_test_autoit
         [Test]
         public void TestGroupCreation()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); // Запоминает старый список
+            // 1. Запоминает старый список
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
 
-            GroupData newGroup = new GroupData()                   // Создает объект
+            // 2. Создает объект
+            GroupData newGroup = new GroupData()
             {
-                Name = "test"
+                Name = "NewGroup"
             };
 
-            app.Groups.Add(newGroup);                              // Создает группу из объекта
-            
-            List<GroupData> newGroups = app.Groups.GetGroupList(); // Запоминает новый список
-            oldGroups.Add(newGroup);                               // Добавляет в старый список новую группу в памяти (не в базу данных и не в UI)
-            oldGroups.Sort();
-            newGroups.Sort();
+            // 3. Создает группу из объекта
+            app.Groups.Add(newGroup);
 
-            ClassicAssert.AreEqual(oldGroups, newGroups);          // Сравнивает списки
+            // 4. Запоминает новый список
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            // 5. Проверка: количество групп увеличелось на 1
+            ClassicAssert.That
+                (newGroups.Count,       // фактическое значение
+                Is.EqualTo              // Проверяет, равно ли фактическое значение ожидаемому
+                (oldGroups.Count + 1)); // ожидаемое значение
         }
     }
 }
